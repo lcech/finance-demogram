@@ -1,0 +1,34 @@
+body {
+  padding-bottom: 20px;
+}
+.navbar-default {
+  margin-bottom: 0px;
+}
+.navbar .nav a {
+  font-weight: bold;
+}
+.jumbotron {
+  background-image: url(/img/finance-bg.jpg);
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom: 1px solid #e7e7e7;
+  margin-bottom: 0px;
+  text-shadow: White 0.1em 0.1em 0.3em;
+}
+.content {
+  margin-top: 1em;
+}
+.CodeMirror {
+  height: inherit;
+}
+.code-example {
+  background: #263238;
+}
+.code-example textarea {
+  display: none;
+}
+.collapsing {
+  -webkit-transition: none;
+  transition: none;
+}
