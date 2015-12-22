@@ -52,7 +52,7 @@ db = new Firebase("https://demogram.firebaseio.com/finance/index/");
           styleActiveLine: true,
           lineNumbers: true
         });
-        //contentCodeEditor.refresh();
+        contentCodeEditor.refresh();
         $(event.target).data("loaded", "true");
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
