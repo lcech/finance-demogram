@@ -1,10 +1,8 @@
-var db;
+var db,
+  headerCodeEditor,
+  contentCodeEditor;
 
 db = new Firebase("https://demogram.firebaseio.com/finance/index/");
-
-(function() {
-  var headerCodeEditor,
-    contentCodeEditor;
 
   (function($) {
     $("#loginForm").submit(function(event) {
@@ -62,4 +60,3 @@ db = new Firebase("https://demogram.firebaseio.com/finance/index/");
       });
     }
   });
-}).call(this);
