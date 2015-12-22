@@ -55,7 +55,7 @@ db = new Firebase("https://demogram.firebaseio.com/finance/index/");
           lineNumbers: true,
           readOnly: false
         });
-        contentCodeEditor.refresh();
+        //contentCodeEditor.refresh();
         $(event.target).data("loaded", "true");
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
