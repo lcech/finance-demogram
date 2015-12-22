@@ -54,7 +54,7 @@ db = new Firebase("https://demogram.firebaseio.com/finance/index/");
           theme: "material",
           styleActiveLine: true,
           lineNumbers: true,
-          readOnly: true
+          readOnly: false
         });
         contentCodeEditor.refresh();
         $(event.target).data("loaded", "true");
