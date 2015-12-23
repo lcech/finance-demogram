@@ -1,4 +1,9 @@
+html {
+  height: 102%;
+  /* always keep a scrollbar */
+}
 body {
+  padding-top: 50px;
   padding-bottom: 20px;
 }
 .navbar-default {
@@ -22,13 +27,11 @@ body {
 .CodeMirror {
   height: inherit;
 }
-.code-example {
+.code-example,
+.code-example textarea {
+  border: 0;
   background: #263238;
 }
-.code-example textarea {
-  display: none;
-}
-.collapsing {
-  -webkit-transition: none;
-  transition: none;
+.tab-content .panel {
+  border-top: 0;
 }

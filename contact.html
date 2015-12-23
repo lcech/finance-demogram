@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Financial Institution Demo</title>
+    <title>Contact</title>
     <!-- Bootstrap core CSS-->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template-->
@@ -70,10 +70,10 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="product.html">Product</a></li>
             <li><a href="form.html">Form</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li class="active"><a href="contact.html">Contact</a></li>
           </ul>
           <form id="loginForm" role="form" class="navbar-form navbar-right">
             <div class="form-group">
@@ -86,42 +86,79 @@
         <!-- /.navbar-collapse-->
       </div>
     </div>
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Financial Institution Demo</h1>
-        <div><p>This is a demo web showing the implementation of digital analytics in the environment of a typical financial institution.</p>
+    <div class="container content">
+      <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Contact</li>
+      </ol>
+      <h1>Contact</h1>
+      <div>
+        <div class="row">
+          <div class="col-md-6"><p>There is always <strong>a simple contact form</strong> somewhere.</p>
 </div>
+        </div>
       </div>
     </div>
-    <!-- Example row of columns-->
     <div class="container">
-      <div class="code-example">
-        <button id="contentCodeToggle" type="button" data-toggle="collapse" data-target="#contentCodeContainer">Content Code</button>
-        <div id="contentCodeContainer" data-code-id="contentCode" data-slug="true" class="codeContainer collapse">
-          <form method="post">
-            <textarea name="contentCode" rows="3" id="contentCode"></textarea>
-            <button id="contentCodeSubmit" type="submit" class="btn btn-primary">Save</button>
-          </form>
-        </div>
-      </div>
       <div class="row">
-        <div class="col-md-4">
-          <h2><span aria-hidden="true" class="glyphicon glyphicon-briefcase"></span> Product
-          </h2>
-          <p>Financial website always contain product detail pages. These are for various types of provided Accounts, Loans, Insurance and other services.</p>
-          <p><a href="product.html" role="button" class="btn btn-default">Go to the Product Detail &raquo;</a></p>
+        <div class="col-sm-5">
+          <!-- Contact Form-->
+          <h2>Send Us a Message</h2>
+          <div class="contact-form-wrapper">
+            <form role="form" class="form-horizontal">
+              <div class="form-group">
+                <label for="Name" class="col-sm-3 control-label"><b>Your Name</b></label>
+                <div class="col-sm-9">
+                  <input id="Name" type="text" placeholder="" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="contact-email" class="col-sm-3 control-label"><b>Your E-mail</b></label>
+                <div class="col-sm-9">
+                  <input id="contact-email" type="text" placeholder="" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="contact-message" class="col-sm-3 control-label"><b>Select Topic</b></label>
+                <div class="col-sm-9">
+                  <select id="prependedInput" class="form-control">
+                    <option>Please select topic...</option>
+                    <option>General</option>
+                    <option>Services</option>
+                    <option>Orders</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="contact-message" class="col-sm-3 control-label"><b>Message</b></label>
+                <div class="col-sm-9">
+                  <textarea id="contact-message" rows="5" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12 col-sm-offset-3">
+                  <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="col-md-4">
-          <h2><span aria-hidden="true" class="glyphicon glyphicon-credit-card"></span> Form
-          </h2>
-          <p>Most often there is a possibility to order a product online. For these purposes there are forms. Lots of pretty complex forms.</p>
-          <p><a href="form.html" role="button" class="btn btn-default">See the Form in action &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2><span aria-hidden="true" class="glyphicon glyphicon-envelope"></span> Contact
-          </h2>
-          <p>And last but not least, there is always a Contact Us page where you can find another form and/or other contact details of the company.</p>
-          <p><a href="contact.html" role="button" class="btn btn-default">View contact details &raquo;</a></p>
+        <div class="col-sm-7">
+          <!-- Map-->
+          <h2>Other Contacts</h2>
+          <div id="contact-us-map"><a style="display: block;" href="https://www.google.cz/maps/place/Etnetera+Activate+a.s./@50.1054489,14.4590426,15z/data=!4m2!3m1!1s0x470b94b2bbd59eed:0x4186376dbe492f6a?hl=en" target="_blank">
+              <iframe src="https://www.google.com/maps/embed/v1/place?q=etnetera%20activate&amp;key=AIzaSyBwK-DlSI2NxGlUJjNkee_6nG8tVImGMac&amp;zoom=13" width="100%" height="300" frameborder="0" style="border:0;pointer-events:none;"></iframe></a></div>
+          <!-- Contact Info-->
+          <div itemscope="" itemtype="http://schema.org/Organization"><strong itemprop="name">Etnetera Activate a.s.</strong>
+            <div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress"></span>Jankovcova 1037/49<br><span itemprop="postalCode">170 00</span> <span itemprop="addressLocality">Praha 7</span>
+            </div>
+            <div itemprop="telephone">Phone: +420 246 035 340
+            </div>
+            <div>E-mail: <a href="mailto:activate@etnetera.cz" itemprop="email">activate@etnetera.cz</a>
+            </div>
+            <div>Web: <a href="http://activate.etnetera.cz/" itemprop="url">activate.etnetera.cz</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -137,7 +174,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
     <script type="text/javascript">
-      Demogram.getInstance({db: new Firebase("https://demogram.firebaseio.com/finance/"), slug: "index"});
+      Demogram.getInstance({db: new Firebase("https://demogram.firebaseio.com/finance/"), slug: "contact"});
       Demogram.checkAuth();
     </script>
   </body>
