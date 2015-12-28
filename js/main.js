@@ -78,7 +78,8 @@ Demogram = (function () {
         if (snapshot.val() === null) {
           instance.config.db.onAuth(function(authData) {
             instance.config.db.child("users").child(authData.uid).set({
-              name: authData.google.displayName
+              name: authData.google.displayName,
+              email: authData.google.email
             });
           });
         }
