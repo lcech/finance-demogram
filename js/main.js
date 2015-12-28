@@ -1,8 +1,10 @@
 //global jQuery
-var Demogram = (function () {
+var Demogram;
+
+Demogram = (function () {
   var instance;
 
-  function Demogram (config) {
+  function Demogram(config) {
     if (!(this instanceof Demogram)) {
       return new Demogram(config);
     }
@@ -12,51 +14,79 @@ var Demogram = (function () {
      */
     this.config = config || {
       db: {},
+      demogram: "finance",
       slug: "index"
     };
     this.config.readOnly = this.config.readOnly || true;
     this.userId = "";
     this.editors = {};
+
+    /**
+     * Logout
+     */
+    this.logout = function() {
+      this.config.db.unauth();
+      window.location.reload();
+    }
   }
 
   return {
-    getInstance: function () {
+    getInstance: function() {
       if (!instance) {
         return instance = Demogram.apply(null, arguments);
       }
       return instance;
     },
-    login: function () {
+    login: function() {
       if (!instance) {
         this.getInstance();
       }
-      function authHandler(error, authData) {
+      instance.config.db.authWithOAuthPopup("google", function(error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          instance.updateUserInfo(authData);
+          window.location.reload();
         }
-      }
-      instance.config.db.authWithOAuthPopup("google", authHandler);
+      }, {"remember": "sessionOnly", "scope": "email"});
     },
-    checkAuth: function () {
+    checkAuth: function() {
       if (!instance) {
         this.getInstance();
       }
       var authData = instance.config.db.getAuth();
       if (authData !== null) {
         this.updateUserInfo(authData);
+        this.setAuthCallback(authData);
       }
     },
-    updateUserInfo: function (authData) {
+    updateUserInfo: function(authData) {
       if (!instance) {
         this.getInstance();
       }
       instance.userId = authData.uid;
       instance.config.readOnly = (instance.userId !== "google:104351988139416907469");
-      $("#loginButton").replaceWith("<p class=\"navbar-text\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-user\"></span> " + authData.google.displayName + "</p>");
+      $("#loginButton").replaceWith("<p class=\"navbar-text\"><span aria-hidden=\"true\" class=\"glyphicon glyphicon-user\"></span> " + authData.google.displayName + " (<a id=\"logoutButton\" href=\"javascript:void(0)\">Logout</a>)</p>");
+      $("#logoutButton").on("click", function (event) {
+        instance.logout();
+      });
     },
-    loadCodeEditor: function (elm) {
+    setAuthCallback: function(authData) {
+      if (!instance) {
+        this.getInstance();
+      }
+      instance.config.db.child("users").child(authData.uid).on("value", function(snapshot) {
+        if (snapshot.val() === null) {
+          instance.config.db.onAuth(function(authData) {
+            instance.config.db.child("users").child(authData.uid).set({
+              name: authData.google.displayName
+            });
+          });
+        }
+      }, function(error) {
+        // do nothing
+      });
+    },
+    loadCodeEditor: function(elm) {
       var $codeContainer,
         codeId,
         loaded,
@@ -75,13 +105,13 @@ var Demogram = (function () {
         $(elm).data("loaded", "true");
       }
     },
-    loadCode: function ($codeContainer, codeId, slug) {
+    loadCode: function($codeContainer, codeId, slug) {
       var query;
 
       if (!instance) {
         this.getInstance();
       }
-      query = (slug === "false" ? instance.config.db : instance.config.db.child(instance.config.slug));
+      query = (slug === "false" ? instance.config.db.child(instance.config.demogram) : instance.config.db.child(instance.config.demogram).child(instance.config.slug));
       query.on("value", function(snapshot) {
         var code;
 
@@ -100,11 +130,11 @@ var Demogram = (function () {
         if ($codeContainer.hasClass("in")) {
           instance.editors[codeId].refresh();
         }
-      }, function (errorObject) {
+      }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
     },
-    refreshCodeEditor: function (elm) {
+    refreshCodeEditor: function(elm) {
       var codeId;
 
       if (!instance) {
@@ -122,14 +152,14 @@ var Demogram = (function () {
   var $editors;
 
   // Demogram Features
-  $("#loginButton").on("click", function (event) {
+  $("#loginButton").on("click", function(event) {
     Demogram.login();
   });
   $editors = $(".codeContainer");
-  $editors.on("show.bs.collapse", function (event) {
+  $editors.on("show.bs.collapse", function(event) {
     Demogram.loadCodeEditor(event.target);
   });
-  $editors.on("shown.bs.collapse", function (event) {
+  $editors.on("shown.bs.collapse", function(event) {
     Demogram.refreshCodeEditor(event.target);
   });
 
