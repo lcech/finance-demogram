@@ -114,26 +114,42 @@ Demogram = (function () {
       }
       query = (slug === "false" ? instance.config.db.child(instance.config.demogram) : instance.config.db.child(instance.config.demogram).child(instance.config.slug));
       query.on("value", function(snapshot) {
-        var code;
+        var code,
+          $textArea,
+          editor;
 
-        code = snapshot.val();
-        $("#" + codeId).val(code[codeId]);
+        code = snapshot.val()[codeId];
+        $textArea = $("#" + codeId);
+        editor = instance.editors[codeId];
 
-        instance.editors[codeId] = CodeMirror.fromTextArea(document.getElementById(codeId), {
-          mode: "xml",
-          htmlMode: true,
-          theme: "material",
-          styleActiveLine: true,
-          lineNumbers: true,
-          readOnly: instance.config.readOnly
-        });
-
-        if ($codeContainer.hasClass("in")) {
-          instance.editors[codeId].refresh();
+        if (typeof editor !== "undefined") {
+          if ($textArea.val() !== code) {
+            $textArea.val(code);
+            editor.setValue(code);
+          }
+        } else {
+          $textArea.val(code);
+          instance.editors[codeId] = CodeMirror.fromTextArea(document.getElementById(codeId), {
+            mode: "xml",
+            htmlMode: true,
+            theme: "material",
+            styleActiveLine: true,
+            lineNumbers: true,
+            readOnly: instance.config.readOnly
+          });
         }
+
+        editor = instance.editors[codeId];
+        editor.on("change", function(editor, changes) {
+          editor.save();
+          query.child(codeId).set(editor.getTextArea().value);
+        });
       }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
+      if ($codeContainer.hasClass("in")) {
+        editor.refresh();
+      }
     },
     refreshCodeEditor: function(elm) {
       var codeId;
@@ -164,10 +180,15 @@ Demogram = (function () {
     Demogram.refreshCodeEditor(event.target);
   });
 
-  // Demo itself features
-  $("#loginForm").submit(function(event) {
+  $(".codeContainer form").on("submit", function(event) {
     event.preventDefault();
-    alert("Submitted!");
+    console.log($(event.target).serialize());
+  });
+
+  // Demo itself features
+  $("#loginForm").on("submit", function(event) {
+    event.preventDefault();
+    console.log("Login Form Submitted");
   });
 
 })(jQuery);
